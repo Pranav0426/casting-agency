@@ -4,10 +4,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FamilyTree</title>
+    <title>Casting Agency</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
+<style>
+    .sub {
+        font-size: 20px;
+        font-weight: bolder;
+    }
+
+    .permissions {
+        font-size: 18px;
+    }
+</style>
 
 <body>
     <section class="section">
@@ -16,8 +26,19 @@
                 Casting agency
             </h1>
             <p class="subtitle">
-                An API to keep track of family members and family events
+                An API to keep track of Movies and Actors
             </p>
+            <h1 class="title">Login credentials</h1>
+            <p><span class="sub">Casting Assistant</span><span class="permissions"> (get:actors | get:movies) </span>
+            </p>
+            <p>Username: user1@agency.com<br />password: Agency@123</p>
+            <p><span class="sub">Casting Director</span><span class="permissions">(get:actors | get:movies | post:actors
+                    | patch:movies | delete:actors | patch:actors)</span> </p>
+            <p>Username: user2@agency.com<br />password: Agency@123</p>
+            <p><span class="sub">Executive Producer</span><span class="permissions">(get:actors | get:movies |
+                    post:actors | post:movies | patch:actors | patch:movies | delete:actors | delete:movies)</span></p>
+            <p>Username: user3@agency.com<br />password: Agency@123</p>
+
             <br />
             <a class="button is-primary" href="/login">Log In</a>
         </div>
