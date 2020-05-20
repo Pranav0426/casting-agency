@@ -1,23 +1,88 @@
 import os
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, render_template, session, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Movie, Actor, db
-from auth import AuthError, requires_auth
+from auth import AuthError, requires_auth, requires_signed_in
+from authlib.flask.client import OAuth
+from six.moves.urllib.parse import urlencode
+import constants
+
+AUTH0_CALLBACK_URL = constants.AUTH0_CALLBACK_URL
+AUTH0_CLIENT_ID = constants.AUTH0_CLIENT_ID
+AUTH0_CLIENT_SECRET = constants.AUTH0_CLIENT_SECRET
+AUTH0_DOMAIN = constants.AUTH0_DOMAIN
+AUTH0_BASE_URL = 'https://' + constants.AUTH0_DOMAIN
+AUTH0_AUDIENCE = constants.AUTH0_AUDIENCE
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
+    app.secret_key = "super secret key"
     setup_db(app)
 
     # setup cross origin
     CORS(app)
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Headers',
+                             'Content-Type,Authorization,true')
+        response.headers.add('Access-Control-Allow-Methods',
+                             'GET,PATCH,POST,DELETE,OPTIONS')
+        return response
+
+    oauth = OAuth(app)
+
+    auth0 = oauth.register(
+        'auth0',
+        client_id=AUTH0_CLIENT_ID,
+        client_secret=AUTH0_CLIENT_SECRET,
+        api_base_url=AUTH0_BASE_URL,
+        access_token_url=AUTH0_BASE_URL + '/oauth/token',
+        authorize_url=AUTH0_BASE_URL + '/authorize',
+        client_kwargs={
+            'scope': 'openid profile email',
+        },
+    )
 
     # Setup home route
+
     @app.route('/')
-    def welcome():
-        return 'Welcome to casting agency'
+    def index():
+        return render_template('index.html')
+
+    @app.route('/login')
+    def login():
+        return auth0.authorize_redirect(redirect_uri=AUTH0_CALLBACK_URL, audience=AUTH0_AUDIENCE)
+
+    @app.route('/callback')
+    def callback_handling():
+        # Handles response from token endpoint
+
+        res = auth0.authorize_access_token()
+        token = res.get('access_token')
+
+        # Store the user information in flask session.
+        session['jwt_token'] = token
+
+        return redirect('/dashboard')
+
+    @app.route('/logout')
+    def logout():
+        # Clear session stored data
+        session.clear()
+        # Redirect user to logout endpoint
+        params = {'returnTo': url_for(
+            'index', _external=True), 'client_id': AUTH0_CLIENT_ID}
+        return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
+
+    @app.route('/dashboard')
+    @requires_signed_in
+    def dashboard():
+        return render_template('dashboard.html',
+                               token=session['jwt_token'],
+                               )
 
     """Movies Routes"""
 
