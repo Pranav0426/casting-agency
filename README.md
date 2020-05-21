@@ -285,7 +285,7 @@ flask run
 
 Replace the jwt tokens in test_app.py with the ones generated on the website.
 
-For testing locally, we need to rest database.
+For testing locally, we need to reset database.
 To reset database, run
 
 ```
