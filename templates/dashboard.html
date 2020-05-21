@@ -7,11 +7,20 @@
     <title>Casting Agency</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        .box {
+            word-wrap: break-word
+        }
+
+        .button {
+            margin-left: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <section class="section">
-        <div class="box">
+        <div class="conatiner box">
             <h1 class="title">
                 Welcome to the Casting Agency API
             </h1>
@@ -22,11 +31,27 @@
                 In order to interact with the API authenticate using your jwt token:
             </p>
             <br />
-            <p>{{token}}</p>
+            <div class="field">
+                <div class="control">
+                    <textarea class="textarea is-primary" id="Token">
+                      {{token}}
+                  </textarea>
+                </div>
+            </div>
             <br />
-            <a class="button is-primary" href="/logout">Log Out</a>
+            <a class="button is-danger" href="/logout">Log Out</a>
+            <button class="button is-info" onclick="copyToken()">Copy Token</button>
         </div>
     </section>
+    <script>
+        function copyToken() {
+            var copyText = document.getElementById("Token");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Copied the text: " + copyText.value);
+        }
+
+    </script>
 </body>
 
 </html>
