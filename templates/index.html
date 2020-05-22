@@ -16,6 +16,10 @@
         .permissions {
             font-size: 18px;
         }
+
+        .tag {
+            margin-left: 10px;
+        }
     </style>
 </head>
 
@@ -29,14 +33,32 @@
             </center>
 
             <h1 class="title">Login credentials</h1>
-            <p><span class="sub">Casting Assistant</span><span class="permissions"> (get:actors | get:movies) </span>
+            <p><span class="sub">Casting Assistant</span>
+                <span class="tag is-info is-medium is-light">get : actors</span>
+                <span class="tag is-info is-medium is-light">get : movies</span>
             </p>
             <p>Username: user1@agency.com<br />password: Agency@123</p>
-            <p><span class="sub">Casting Director</span><span class="permissions">(get:actors | get:movies | post:actors
-                    | patch:movies | delete:actors | patch:actors)</span> </p>
+            <p><span class="sub">Casting Director</span>
+                <span class="tag is-info is-medium is-light">get : actors</span>
+                <span class="tag is-info is-medium is-light">get : movies</span>
+                <span class="tag is-info is-medium is-light">post : actors</span>
+                <span class="tag is-info is-medium is-light">patch : movies</span>
+                <span class="tag is-info is-medium is-light">delete : actors</span>
+                <span class="tag is-info is-medium is-light"> patch : actors</span>
+            </p>
             <p>Username: user2@agency.com<br />password: Agency@123</p>
-            <p><span class="sub">Executive Producer</span><span class="permissions">(get:actors | get:movies |
-                    post:actors | post:movies | patch:actors | patch:movies | delete:actors | delete:movies)</span></p>
+            <p><span class="sub">Executive Producer</span>
+                <span class="tag is-info is-medium is-light">get : actors</span>
+                <span class="tag is-info is-medium is-light">get : movies</span>
+                <span class="tag is-info is-medium is-light">post : actors</span>
+                <span class="tag is-info is-medium is-light">post : movies</span>
+                <span class="tag is-info is-medium is-light"> patch : actors</span>
+                <span class="tag is-info is-medium is-light">patch : movies</span>
+                <span class="tag is-info is-medium is-light">delete : actors</span>
+                <span class="tag is-info is-medium is-light">delete : movies</span>
+
+
+            </p>
             <p>Username: user3@agency.com<br />password: Agency@123</p>
 
             <br />
