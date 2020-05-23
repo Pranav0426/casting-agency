@@ -1,5 +1,6 @@
 import os
-from flask import Flask, request, abort, jsonify, render_template, session, url_for, redirect
+from flask import Flask, request, abort, jsonify
+from flask import render_template, session, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Movie, Actor, db
@@ -24,10 +25,13 @@ def create_app(test_config=None):
 
     # setup cross origin
     CORS(app)
+
     @app.after_request
     def after_request(response):
+
         response.headers.add('Access-Control-Allow-Headers',
                              'Content-Type,Authorization,true')
+
         response.headers.add('Access-Control-Allow-Methods',
                              'GET,PATCH,POST,DELETE,OPTIONS')
         return response
@@ -54,7 +58,8 @@ def create_app(test_config=None):
 
     @app.route('/login')
     def login():
-        return auth0.authorize_redirect(redirect_uri=AUTH0_CALLBACK_URL, audience=AUTH0_AUDIENCE)
+        return auth0.authorize_redirect(redirect_uri=AUTH0_CALLBACK_URL,
+                                        audience=AUTH0_AUDIENCE)
 
     @app.route('/callback')
     def callback_handling():
