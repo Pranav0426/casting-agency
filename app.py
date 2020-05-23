@@ -9,10 +9,10 @@ from six.moves.urllib.parse import urlencode
 import constants
 
 AUTH0_CALLBACK_URL = constants.AUTH0_CALLBACK_URL
-AUTH0_CLIENT_ID = constants.AUTH0_CLIENT_ID
-AUTH0_CLIENT_SECRET = constants.AUTH0_CLIENT_SECRET
-AUTH0_DOMAIN = constants.AUTH0_DOMAIN
-AUTH0_BASE_URL = 'https://' + constants.AUTH0_DOMAIN
+AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
+AUTH0_CLIENT_SECRET = os.environ['AUTH0_CLIENT_SECRET']
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+AUTH0_BASE_URL = 'https://' + os.environ['AUTH0_DOMAIN']
 AUTH0_AUDIENCE = constants.AUTH0_AUDIENCE
 
 
