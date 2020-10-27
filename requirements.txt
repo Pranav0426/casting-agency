@@ -17,7 +17,7 @@ click==7.1.2
 colorama==0.4.3
 ConfigArgParse==1.0
 coursera-dl==0.11.5
-cryptography==2.9.2
+cryptography==3.2
 distlib==0.3.0
 dnspython==1.16.0
 ecdsa==0.15
